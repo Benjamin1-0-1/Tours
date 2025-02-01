@@ -1,0 +1,44 @@
+.footer-container {
+    background-color: #7E1014;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2rem;
+  }
+
+  .footer-container h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .footer-container ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-container li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-top-destinations,
+  .footer-company,
+  .footer-contact,
+  .footer-offices {
+    flex: 1 1 200px;
+    margin: 1rem;
+  }
+
+  .social-icons {
+    margin-top: 0.5rem;
+  }
+
+  .social-icons i {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .social-icons i:hover {
+    opacity: 0.8;
+  }
