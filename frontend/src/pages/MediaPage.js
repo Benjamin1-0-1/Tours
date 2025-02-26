@@ -112,3 +112,4 @@ function MediaPage() {
 }
 
 export default MediaPage;
+// check the get_media function in app.py at the videos section in the data dictionary

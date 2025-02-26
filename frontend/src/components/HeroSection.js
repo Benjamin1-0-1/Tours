@@ -16,3 +16,4 @@ function HeroSection({ title, subtitle, backgroundImage }) {
 }
 
 export default HeroSection;
+// awesome

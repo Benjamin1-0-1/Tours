@@ -11,6 +11,7 @@ function ToursPage() {
     axios.get('http://localhost:5000/api/tours')
       .then((res) => {
         setTours(res.data.tours);
+        console.log(res.data.tours);//remove me 
         setLoading(false);
       })
       .catch((err) => {

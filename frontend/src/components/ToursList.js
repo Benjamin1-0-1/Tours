@@ -23,3 +23,4 @@ function ToursList({ tours }) {
 }
 
 export default ToursList;
+// awesome but check if the Link part works properly.
