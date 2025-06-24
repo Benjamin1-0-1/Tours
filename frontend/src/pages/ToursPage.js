@@ -1,3 +1,4 @@
+// src/pages/ToursPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ToursList from '../components/ToursList';
@@ -8,15 +9,15 @@ function ToursPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tours')
+    axios
+      .get('http://localhost:5000/api/tours')
       .then((res) => {
         setTours(res.data.tours);
-        console.log(res.data.tours);//remove me 
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Failed to fetch tours:", err);
-        setError("Failed to fetch tours");
+        console.error('Failed to fetch tours:', err);
+        setError('Failed to fetch tours');
         setLoading(false);
       });
   }, []);

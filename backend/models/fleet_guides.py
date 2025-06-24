@@ -11,11 +11,11 @@ class FleetGuides(db.Model):
     operatorsTitle = db.Column(db.String(200))
     operatorsContent = db.Column(db.Text)
     staffTitle = db.Column(db.String(200))
-    staffMembers = db.Column(db.Text)  # JSON array of staff objects
+    staffMembers = db.Column(db.Text)
     privateTourGuideTitle = db.Column(db.String(200))
     privateTourGuideText = db.Column(db.Text)
     faqTitle = db.Column(db.String(200))
-    faqs = db.Column(db.Text)  # JSON array
+    faqs = db.Column(db.Text) 
 
     def serialize(self):
         return {

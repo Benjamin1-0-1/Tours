@@ -8,7 +8,7 @@ class RequestQuote(db.Model):
     heroTitle = db.Column(db.String(200))
     heroSubtitle = db.Column(db.String(200))
     heroImage = db.Column(db.Text)
-    formFields = db.Column(db.Text)  # JSON array of field definitions
+    formFields = db.Column(db.Text)
 
     def serialize(self):
         return {

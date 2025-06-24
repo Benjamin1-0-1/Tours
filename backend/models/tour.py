@@ -5,7 +5,7 @@ class Tour(db.Model):
     __tablename__ = 'tours'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.Text, nullable=False)  # store base64 or URL
+    image = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
     def serialize(self):

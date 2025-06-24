@@ -1,58 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './DestinationsPage.css';
 
 function DestinationsPage() {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/destinations')
+    axios
+      .get('http://localhost:5000/api/destinations')
       .then((res) => setData(res.data))
-      .catch((err) => console.error("Failed to fetch destinations:", err));
+      .catch((err) => console.error('Failed to fetch destinations:', err));
   }, []);
 
   if (!data) {
-    return <div style={{ padding: '2rem' }}>Loading Destinations...</div>;
+    return <div className="loading">Loading Destinations…</div>;
   }
 
   const { heroTitle, heroSubtitle, heroImage, introText, destinations } = data;
 
+  // If your API returns the raw public path (frontend/public/images/hero.jpg),
+  // uncomment the line below to strip off the extra bits:
+  const heroUrl = heroImage  ? `/images/${heroImage.replace(/^.*public/, '')}`  : '/images/img1.jpg';   // pick a sensible fallback
+
+  // Otherwise, if your API now just returns "hero.jpg", use this:
+  // const heroUrl = `/images/${heroImage}`;
+
   return (
-    <div>
+    <div className="destinations-page">
       <div
-        style={{
-          height: '300px',
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
+        className="hero"
+        style={{ backgroundImage: `url(${heroUrl})` }}
       >
-        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '8px' }}>
-          <h1 style={{ color: '#fff', margin: 0 }}>{heroTitle}</h1>
-          <p style={{ color: '#fff', margin: 0 }}>{heroSubtitle}</p>
+        <div className="hero-overlay">
+          <h1>{heroTitle}</h1>
+          <p>{heroSubtitle}</p>
         </div>
       </div>
-      <div style={{ padding: '2rem' }}>
+
+      <section className="intro">
         <h2>Destinations</h2>
         <p>{introText}</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
-          {destinations.map((dest) => (
-            <div key={dest.id} onClick={() => navigate(`/destinations/${dest.slug || dest.id}`)} style={{ cursor: 'pointer', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 6px rgba(0,0,0,0.15)' }}>
-              <img src={dest.image} alt={dest.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-              <div style={{ padding: '1rem' }}>
-                <h3>{dest.name}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      </section>
+
+      <section className="grid">
+        {destinations.map((dest) => (
+          <div
+            key={dest.id}
+            className="card"
+            onClick={() =>
+              navigate(`/destinations/${dest.slug || dest.id}`)
+            }
+          >
+            <img
+              src={`/images/${dest.image.replace(/^.*public/, '')}`}
+              alt={dest.name}
+            />
+            <h3>{dest.name}</h3>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
 
 export default DestinationsPage;
-// good to go

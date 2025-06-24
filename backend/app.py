@@ -7,8 +7,6 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from models.ext import db
 from config import Config
-from routes.auth_routes import auth_bp
-
 from routes.home_routes import home_bp
 from routes.tour_routes import tour_bp
 from routes.destination_routes import destination_bp
@@ -29,7 +27,6 @@ jwt = JWTManager(app)
 CORS(app, origins=["http://localhost:3000"])
 
 # Register blueprints
-app.register_blueprint(auth_bp)
 app.register_blueprint(home_bp)
 app.register_blueprint(tour_bp)
 app.register_blueprint(destination_bp)

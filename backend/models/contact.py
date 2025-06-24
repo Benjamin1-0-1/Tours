@@ -1,4 +1,3 @@
-# models/contact.py
 from models.ext import db
 import json
 
@@ -13,7 +12,7 @@ class Contact(db.Model):
     locationAddress = db.Column(db.Text)  # JSON array
     locationTitle2 = db.Column(db.String(100))
     locationAddress2 = db.Column(db.Text)  # JSON array
-    mapEmbed = db.Column(db.Text)
+
 
     def serialize(self):
         return {
@@ -24,6 +23,5 @@ class Contact(db.Model):
             "locationTitle": self.locationTitle,
             "locationAddress": json.loads(self.locationAddress) if self.locationAddress else [],
             "locationTitle2": self.locationTitle2,
-            "locationAddress2": json.loads(self.locationAddress2) if self.locationAddress2 else [],
-            "mapEmbed": self.mapEmbed
+            "locationAddress2": json.loads(self.locationAddress2) if self.locationAddress2 else []
         }

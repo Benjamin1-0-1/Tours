@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import HeroSection from '../components/HeroSection';
+
 
 function HomePage() {
   const [data, setData] = useState(null);
@@ -16,12 +16,8 @@ function HomePage() {
   }
 
   return (
-    <div>
-      <HeroSection
-        title={data.heroTitle}
-        subtitle={data.heroSubtitle}
-        backgroundImage={data.heroImage}
-      />
+      <div>
+        <p>HI</p>
       <div style={{ padding: '2rem' }}>
         <h2>{data.aboutTitle}</h2>
         <p>{data.aboutText}</p>

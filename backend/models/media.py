@@ -10,8 +10,7 @@ class Media(db.Model):
     heroImage = db.Column(db.Text)
     photosHeading = db.Column(db.String(200))
     photos = db.Column(db.Text)  # JSON array
-    videosHeading = db.Column(db.String(200))
-    videos = db.Column(db.Text)  # JSON array
+
 
     def serialize(self):
         return {
@@ -19,7 +18,5 @@ class Media(db.Model):
             "heroSubtitle": self.heroSubtitle,
             "heroImage": self.heroImage,
             "photosHeading": self.photosHeading,
-            "photos": json.loads(self.photos) if self.photos else [],
-            "videosHeading": self.videosHeading,
-            "videos": json.loads(self.videos) if self.videos else []
+            "photos": json.loads(self.photos) if self.photos else []
         }
