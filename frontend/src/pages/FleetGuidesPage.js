@@ -1,7 +1,7 @@
 import React from 'react';
 import './FleetGuides.css';
 
-// Static data for fleet and guides
+// Static data
 const fleetData = {
   heroTitle: 'Our Fleet & Guides',
   heroSubtitle: 'Reliable Vehicles and Expert Guides',
@@ -36,7 +36,6 @@ export default function FleetGuidesPage() {
 
   return (
     <div className="fleet-page">
-      {/* Hero Section */}
       <header className="fleet-hero" style={{ backgroundImage: `url(${heroImage})` }}>
         <div className="fleet-hero-overlay">
           <h1>{heroTitle}</h1>
@@ -44,12 +43,10 @@ export default function FleetGuidesPage() {
         </div>
       </header>
 
-      {/* Intro */}
       <section className="fleet-intro">
         <p>{introText}</p>
       </section>
 
-      {/* Vehicles Grid */}
       <section className="vehicles-section">
         <h2>Our Vehicles</h2>
         <div className="vehicles-grid">
@@ -65,7 +62,6 @@ export default function FleetGuidesPage() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="features-section">
         <h2>Why Choose Our Fleet</h2>
         <div className="features-grid">

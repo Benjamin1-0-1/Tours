@@ -1,10 +1,8 @@
-import React from 'react';
 import './ContactPage.css';
 
 export default function ContactPage() {
   return (
     <div className="contact-page">
-      {/* Hero Banner */}
       <header className="contact-hero">
         <div className="hero-overlay">
           <h1 className="hero-title">Get in Touch</h1>
@@ -12,7 +10,6 @@ export default function ContactPage() {
         </div>
       </header>
 
-      {/* Intro */}
       <section className="contact-intro">
         <p>
           Whether you’re ready to book a safari, have questions about our
@@ -21,12 +18,9 @@ export default function ContactPage() {
         </p>
       </section>
 
-      {/* Contact Info & Form */}
       <div className="contact-grid">
-        {/* Left: Info */}
         <div className="contact-info">
           <h2>Our Contacts</h2>
-
           <div className="info-block">
             <h3>Phone</h3>
             <a href="tel:+254700123456">+254 700 123 456</a>
@@ -37,24 +31,15 @@ export default function ContactPage() {
             <a href="mailto:info@mufasatours.co.ke">info@mufasatours.co.ke</a>
           </div>
 
-          <div className="info-block">
-            <h3>Head Office</h3>
-            <address>
-              Mufasa Tours &amp; Travels<br/>
-              123 Safari Avenue<br/>
-              Nairobi, Kenya
-            </address>
-          </div>
 
           <div className="info-block">
             <h3>Working Hours</h3>
             <p>Mon–Fri: 8 am – 6 pm<br/>
-               Sat: 9 am – 2 pm<br/>
-               Sun: Closed</p>
+              Sat & Sun: 9 am – 2 pm<br/>
+            </p>
           </div>
         </div>
 
-        {/* Right: Contact Form */}
         <div className="contact-form">
           <h2>Send Us a Message</h2>
           <form onSubmit={e => { e.preventDefault(); alert('Thank you!'); }}>

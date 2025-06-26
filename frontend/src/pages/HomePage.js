@@ -1,5 +1,3 @@
-// src/pages/HomePage.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
 
@@ -56,12 +54,10 @@ const faqItems = [
 function HomePage() {
   return (
     <div className="homepage">
-      {/* Logo */}
       <div className="homepage-logo">
         <Link to="/" className="logo-link">MUFASA Tours &amp; Travels</Link>
       </div>
 
-      {/* Centered Intro */}
       <section className="intro-section">
         <h1>Welcome to MUFASA Tours &amp; Travels</h1>
         <p>
@@ -73,13 +69,11 @@ function HomePage() {
         <hr className="section-separator" />
       </section>
 
-      {/* About */}
       <section className="about-section">
         <h2 className="about-title">{aboutData.aboutTitle}</h2>
         <p className="about-text">{aboutData.aboutText}</p>
       </section>
 
-      {/* Safari Packages */}
       <h3 className="packages-heading">Our Safari Packages</h3>
       <div className="packages-grid">
         {safariPackages.map(pkg => (
@@ -99,7 +93,6 @@ function HomePage() {
         ))}
       </div>
 
-      {/* Why Choose Us */}
       <section className="why-section">
         <h3 className="why-heading">WHY CHOOSE US</h3>
         <div className="why-underline" />
@@ -114,7 +107,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="faq-section">
         <h3 className="faq-heading">Frequently Asked Questions</h3>
         <hr className="section-separator" />

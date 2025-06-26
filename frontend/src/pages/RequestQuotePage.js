@@ -31,7 +31,7 @@ function RequestQuotePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, phone, tourPackage, travelDate, people, message } = formValues;
-    // Dummy developer email where the quote request will be sent
+    // Dummy email 
     const developerEmail = 'dev@example.com'; // <-- placed here
 
     // Compose email body

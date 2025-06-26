@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import './ToursList.css';
 
@@ -10,7 +9,6 @@ function ToursList({ tours }) {
   return (
     <div className="tours-container">
       {tours.map((tour) => {
-        // Option 2: strip out the extra path
         const publicPath = tour.image.replace(/^.*public/, '');
 
         return (

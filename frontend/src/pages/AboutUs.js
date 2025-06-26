@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutUs.css';
 
-// Static About Us data
+// Static data
 const aboutData = {
   heroTitle: 'Our Story',
   heroSubtitle: 'Passionate about Safari Adventures',
@@ -46,7 +46,7 @@ export default function AboutUs() {
       {/* Hero Section */}
       <header
         className="about-hero"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${heroImage})` }}//check here
       >
         <div className="hero-overlay">
           <h1>{heroTitle}</h1>
@@ -54,7 +54,6 @@ export default function AboutUs() {
         </div>
       </header>
 
-      {/* Who We Are */}
       <section className="who-section">
         <h2>Who We Are</h2>
         <div
@@ -76,7 +75,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Traveler Reviews */}
+
       <section className="reviews-section">
         <h2>{reviewsIntro}</h2>
         <div className="reviews-grid">
@@ -89,7 +88,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Accreditations */}
+      {/* Accreditations (not very necessary) */}
       <section className="accreditations-section">
         <h2>{accreditationsTitle}</h2>
         <div className="accreditations-grid">
