@@ -1,167 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import './FleetGuides.css';
 
-function FleetGuidesPage() {
-  const [data, setData] = useState(null);
+// Static data for fleet and guides
+const fleetData = {
+  heroTitle: 'Our Fleet & Guides',
+  heroSubtitle: 'Reliable Vehicles and Expert Guides',
+  heroImage: '/images/fleet-hero.jpg',
+  introText: `Our fleet consists of modern, well-maintained 4×4 vehicles designed for comfort and safety in the African wilderness. Paired with our experienced local guides, your safari experience will be unforgettable.`,
+  vehicles: [
+    {
+      name: 'Toyota Land Cruiser',
+      description: 'Spacious 4×4 with pop-up roof for optimal game viewing.',
+      img: '/images/img1.jpeg'
+    },
+    {
+      name: 'Land Rover Defender',
+      description: 'Durable off-road vehicle with ample storage space.',
+      img: '/images/img2.jpeg'
+    },
+    {
+      name: 'Toyota Hiace Minibus',
+      description: 'Ideal for group transfers and short tours.',
+      img: '/images/img3.jpeg'
+    }
+  ],
+  features: [
+    { title: 'Comfort & Safety', text: 'All vehicles are equipped with seat belts, first-aid kits, and emergency communication.' },
+    { title: 'Experienced Guides', text: 'Our guides are certified, bilingual, and have deep knowledge of flora & fauna.' },
+    { title: '24/7 Support', text: 'We provide round-the-clock assistance and backup vehicles if needed.' }
+  ]
+};
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/about/fleet-guides')
-      .then(res => setData(res.data))
-      .catch(err => console.error("Failed to fetch fleet & guides data:", err));
-  }, []);
-
-  if (!data) {
-    return <div style={{ padding: '2rem' }}>Loading Fleet & Guides info...</div>;
-  }
-
-  const {
-    heroTitle,
-    heroSubtitle,
-    heroImage,
-    introParagraph,
-    mainSections,
-    addedFeaturesTitle,
-    addedFeatures,
-    operatorsTitle,
-    operatorsContent,
-    staffTitle,
-    staffMembers,
-    privateTourGuideTitle,
-    privateTourGuideText,
-    faqTitle,
-    faqs,
-    showEnquireForm
-  } = data;
+export default function FleetGuidesPage() {
+  const { heroTitle, heroSubtitle, heroImage, introText, vehicles, features } = fleetData;
 
   return (
-    <div>
-      {/* Hero */}
-      <div
-        style={{
-          height: '300px',
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '8px' }}>
-          <h1 style={{ color: '#fff', margin: 0 }}>{heroTitle}</h1>
-          <p style={{ color: '#fff', margin: 0 }}>{heroSubtitle}</p>
+    <div className="fleet-page">
+      {/* Hero Section */}
+      <header className="fleet-hero" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="fleet-hero-overlay">
+          <h1>{heroTitle}</h1>
+          <p>{heroSubtitle}</p>
         </div>
-      </div>
+      </header>
 
-      {/* Intro Paragraph */}
-      <div style={{ padding: '2rem' }}>
-        <div dangerouslySetInnerHTML={{ __html: introParagraph }} />
-      </div>
+      {/* Intro */}
+      <section className="fleet-intro">
+        <p>{introText}</p>
+      </section>
 
-      {/* Main Sections */}
-      {mainSections && mainSections.map((section, idx) => (
-        <div key={idx} style={{ padding: '2rem' }}>
-          <h2>{section.title}</h2>
-          <div
-            dangerouslySetInnerHTML={{ __html: section.content }}
-            style={{ marginTop: '1rem' }}
-          />
-        </div>
-      ))}
-
-      {/* Added Features */}
-      <div style={{ padding: '2rem' }}>
-        <h2>{addedFeaturesTitle}</h2>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-          {addedFeatures && addedFeatures.map((feature, idx) => (
-            <div
-              key={idx}
-              style={{
-                flex: '1 1 200px',
-                textAlign: 'center',
-                marginBottom: '1rem'
-              }}
-            >
-              <img
-                src={feature.img}
-                alt="feature"
-                style={{ width: '100px', height: '100px', objectFit: 'contain' }}
-              />
-              <p style={{ marginTop: '0.5rem' }}>{feature.description}</p>
+      {/* Vehicles Grid */}
+      <section className="vehicles-section">
+        <h2>Our Vehicles</h2>
+        <div className="vehicles-grid">
+          {vehicles.map((v, idx) => (
+            <div key={idx} className="vehicle-card">
+              <img src={v.img} alt={v.name} className="vehicle-image" />
+              <div className="vehicle-info">
+                <h3>{v.name}</h3>
+                <p>{v.description}</p>
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Operators */}
-      <div style={{ padding: '2rem' }}>
-        <h2>{operatorsTitle}</h2>
-        <div
-          dangerouslySetInnerHTML={{ __html: operatorsContent }}
-          style={{ marginTop: '1rem' }}
-        />
-      </div>
-
-      {/* Staff Grid */}
-      <div style={{ padding: '2rem' }}>
-        <h2>{staffTitle}</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}>
-          {staffMembers && staffMembers.map((staff, index) => (
-            <div key={index} style={{ flex: '1 1 200px', textAlign: 'center' }}>
-              <img
-                src={staff.img}
-                alt={staff.name}
-                style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px' }}
-              />
-              <h4 style={{ marginTop: '0.5rem' }}>{staff.name}</h4>
+      {/* Features */}
+      <section className="features-section">
+        <h2>Why Choose Our Fleet</h2>
+        <div className="features-grid">
+          {features.map((f, idx) => (
+            <div key={idx} className="feature-card">
+              <h4>{f.title}</h4>
+              <p>{f.text}</p>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Private Tour Guide Services */}
-      <div style={{ padding: '2rem', background: '#fafafa' }}>
-        <h2>{privateTourGuideTitle}</h2>
-        <div
-          dangerouslySetInnerHTML={{ __html: privateTourGuideText }}
-          style={{ marginTop: '1rem' }}
-        />
-      </div>
-
-      {/* FAQ */}
-      <div style={{ padding: '2rem' }}>
-        <h2>{faqTitle}</h2>
-        {faqs && faqs.map((f, idx) => (
-          <details key={idx} style={{ marginBottom: '1rem' }}>
-            <summary style={{ fontWeight: 'bold', cursor: 'pointer' }}>
-              {f.question}
-            </summary>
-            <div style={{ marginTop: '0.5rem' }}>
-              {f.answer}
-            </div>
-          </details>
-        ))}
-      </div>
-
-      {/* Enquire Form (optional) */}
-      {showEnquireForm && (
-        <div style={{ padding: '2rem' }}>
-          <h2>Enquire Now</h2>
-          <form>
-            {/* Basic example fields */}
-            <label>First Name *</label>
-            <input type="text" name="firstName" required style={{ display: 'block', marginBottom: '1rem' }} />
-
-            <label>Last Name *</label>
-            <input type="text" name="lastName" required style={{ display: 'block', marginBottom: '1rem' }} />
-
-            <button type="submit" style={{ marginTop: '1rem' }}>Submit</button>
-          </form>
-        </div>
-      )}
+      </section>
     </div>
   );
 }
-
-export default FleetGuidesPage;
-// awesome

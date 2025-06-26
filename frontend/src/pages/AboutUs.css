@@ -1,0 +1,152 @@
+/* AboutUs.css */
+
+.about-page {
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+  color: #333;
+}
+
+/* Hero */
+.about-hero {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.hero-overlay {
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+.hero-overlay h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+.hero-overlay p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Who We Are */
+.who-section {
+  margin-bottom: 2rem;
+}
+.who-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #800000;
+}
+.who-content p {
+  line-height: 1.6;
+}
+
+/* Why Choose Us */
+.why-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.why-section h2 {
+  font-size: 2rem;
+  color: #800000;
+  margin-bottom: 1rem;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+  gap: 1rem;
+}
+.feature-card {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: left;
+}
+.feature-card h3 {
+  margin-top: 0;
+  color: #800000;
+}
+
+/* Reviews */
+.reviews-section {
+  background: #fafafa;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+.reviews-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+  gap: 1rem;
+}
+.review-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.review-text {
+  font-style: italic;
+}
+.review-author {
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Accreditations */
+.accreditations-section {
+  margin-bottom: 2rem;
+}
+.accreditations-section h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #800000;
+}
+.accreditations-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.accreditation-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Final Banner */
+.about-banner {
+  background: #eee;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-radius: 8px;
+}
+.about-banner p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}

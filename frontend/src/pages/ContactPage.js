@@ -1,109 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import './ContactPage.css';
 
-function ContactPage() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/contact')
-      .then((res) => setData(res.data))
-      .catch((err) => console.error("Failed to fetch contact data:", err));
-  }, []);
-
-  if (!data) {
-    return <div style={{ padding: '2rem' }}>Loading Contact Info...</div>;
-  }
-
-  const {
-    heroTitle,
-    heroSubtitle,
-    heroImage,
-    contactInfo,
-    mapEmbed
-  } = data;
-
+export default function ContactPage() {
   return (
-    <div>
-      {/* Hero */}
-      <div
-        style={{
-          height: '300px',
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <div style={{ background:'rgba(0,0,0,0.3)', padding:'1rem', borderRadius:'8px' }}>
-          <h1 style={{ color:'#fff', margin:0 }}>{heroTitle}</h1>
-          <p style={{ color:'#fff', margin:0 }}>{heroSubtitle}</p>
+    <div className="contact-page">
+      {/* Hero Banner */}
+      <header className="contact-hero">
+        <div className="hero-overlay">
+          <h1 className="hero-title">Get in Touch</h1>
+          <p className="hero-subtitle">We’d love to hear from you</p>
         </div>
-      </div>
+      </header>
 
-      {/* Intro text */}
-      <div style={{ textAlign:'center', padding:'2rem' }}>
-        <h2>Contact the Travel Pros</h2>
-        <p>Your journey starts here – let’s connect and start planning your trip.</p>
-      </div>
+      {/* Intro */}
+      <section className="contact-intro">
+        <p>
+          Whether you’re ready to book a safari, have questions about our
+          services, or just want to say hello, drop us a line below or use
+          any of the methods listed.
+        </p>
+      </section>
 
-      {/* Two-column layout */}
-      <div style={{ display:'flex', gap:'2rem', padding:'2rem' }}>
-        {/* Left column: contact info */}
-        <div style={{ flex:'1 1 300px' }}>
-          <h3>Our Contacts</h3>
-          <p><strong>Phone</strong><br/>{contactInfo.phone}</p>
-          <p><strong>Location</strong></p>
-          <p>
-            <strong>{contactInfo.locationTitle}</strong><br/>
-            {contactInfo.locationAddress.map((line, idx) => (
-              <div key={idx}>{line}</div>
-            ))}
-          </p>
-          <p>
-            <strong>{contactInfo.locationTitle2}</strong><br/>
-            {contactInfo.locationAddress2.map((line, idx) => (
-              <div key={idx}>{line}</div>
-            ))}
-          </p>
+      {/* Contact Info & Form */}
+      <div className="contact-grid">
+        {/* Left: Info */}
+        <div className="contact-info">
+          <h2>Our Contacts</h2>
+
+          <div className="info-block">
+            <h3>Phone</h3>
+            <a href="tel:+254700123456">+254 700 123 456</a>
+          </div>
+
+          <div className="info-block">
+            <h3>Email</h3>
+            <a href="mailto:info@mufasatours.co.ke">info@mufasatours.co.ke</a>
+          </div>
+
+          <div className="info-block">
+            <h3>Head Office</h3>
+            <address>
+              Mufasa Tours &amp; Travels<br/>
+              123 Safari Avenue<br/>
+              Nairobi, Kenya
+            </address>
+          </div>
+
+          <div className="info-block">
+            <h3>Working Hours</h3>
+            <p>Mon–Fri: 8 am – 6 pm<br/>
+               Sat: 9 am – 2 pm<br/>
+               Sun: Closed</p>
+          </div>
         </div>
 
-        {/* Right column: form (demo) */}
-        <div style={{ flex:'2 1 500px' }}>
-          <h3>Contact Us</h3>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              // handle form submission
-            }}
-            style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}
-          >
-            <div style={{ display:'flex', flexDirection:'column' }}>
-              <label>First Name *</label>
-              <input type="text" name="firstName" required />
-            </div>
+        {/* Right: Contact Form */}
+        <div className="contact-form">
+          <h2>Send Us a Message</h2>
+          <form onSubmit={e => { e.preventDefault(); alert('Thank you!'); }}>
+            <label>
+              Name<span>*</span>
+              <input type="text" name="name" required />
+            </label>
 
-            <div style={{ display:'flex', flexDirection:'column' }}>
-              <label>Last Name *</label>
-              <input type="text" name="lastName" required />
-            </div>
-            {/* Add more fields for phone, email, safari start date, etc. */}
+            <label>
+              Email<span>*</span>
+              <input type="email" name="email" required />
+            </label>
 
-            <div style={{ gridColumn:'span 2', marginTop:'1rem' }}>
-              <button type="submit">Submit</button>
-            </div>
+            <label>
+              Phone
+              <input type="tel" name="phone" />
+            </label>
+
+            <label>
+              Message<span>*</span>
+              <textarea name="message" rows="5" required />
+            </label>
+
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
-
-      {/* Embedded map */}
-      <div style={{ padding:'2rem' }}>
-        <div dangerouslySetInnerHTML={{ __html: mapEmbed }} />
-      </div>
     </div>
-  );
-}
-
-export default ContactPage;
-// awesome
+)}

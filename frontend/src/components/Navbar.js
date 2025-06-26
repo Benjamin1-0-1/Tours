@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar() {
+const navItems = [
+  { to: '/',                   label: 'Home' },
+  { to: '/tours',              label: 'Tours' },
+  { to: '/about/our-company',  label: 'About Us' },
+  { to: '/fleet-guides',       label: 'Fleet & Guides' },
+  { to: '/contact-us',         label: 'Contact Us' },
+  { to: '/request-a-quote',    label: 'Request Quote', className: 'quote-btn' }
+];
+
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768 && menuOpen) setMenuOpen(false);
+      if (window.innerWidth > 768 && menuOpen) {
+        setMenuOpen(false);
+      }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -15,30 +26,29 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">MUFASA Tours &amp; Travels</div>
+      <div className="navbar-brand">
+        <NavLink to="/" className="logo-link">MUFASA Tours &amp; Travels</NavLink>
+      </div>
       <button
         className="navbar-toggle"
         aria-label="Toggle navigation"
-        onClick={() => setMenuOpen(o => !o)}
+        onClick={() => setMenuOpen(open => !open)}
       >
         <span className="hamburger">&#9776;</span>
       </button>
       <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
-        {['/', '/tours', '/destinations', '/about', '/contact-us', '/request-quote']
-          .map((path, i) => {
-            const labels = ['Home','Tours','Destinations','About Us','Contact Us','Request Quote'];
-            const cls = (i===5? 'quote-btn' : '');
-            return (
-              <li key={path} className={cls}>
-                <Link to={path} onClick={()=>setMenuOpen(false)}>
-                  {labels[i]}
-                </Link>
-              </li>
-            );
-          })}
+        {navItems.map(({ to, label, className }) => (
+          <li key={to} className={className || ''}>
+            <NavLink
+              to={to}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) => isActive ? 'active-link' : undefined}
+            >
+              {label}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   );
 }
-
-export default Navbar;

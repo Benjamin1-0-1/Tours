@@ -1,166 +1,145 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import './RequestQuote.css';
+
+const tourOptions = [
+  'Kenya Road Safaris',
+  'Kenya Luxury Safaris',
+  'Kenya–Tanzania Safaris',
+  'Masai Mara Adventures',
+  'Amboseli Day Trip',
+  'Lake Nakuru Retreat',
+  'Tsavo East Safari',
+  'Samburu Cultural Tour'
+];
 
 function RequestQuotePage() {
-  const [data, setData] = useState(null);
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    tourPackage: '',
+    travelDate: '',
+    people: 1,
+    message: ''
+  });
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/request-quote')
-      .then((res) => {
-        setData(res.data);
-        const initValues = {};
-        res.data.formFields.forEach(field => {
-          if (field.type === 'checkboxGroup' || field.type === 'radio') {
-            initValues[field.name] = [];
-          } else {
-            initValues[field.name] = '';
-          }
-        });
-        setFormValues(initValues);
-      })
-      .catch((err) => console.error("Failed to fetch request quote data:", err));
-  }, []);
-
-  if (!data) {
-    return <div style={{ padding: '2rem' }}>Loading Request a Quote...</div>;
-  }
-
-  const {
-    heroTitle,
-    heroSubtitle,
-    heroImage,
-    formFields
-  } = data;
-
-  const handleInputChange = (field, e) => {
-    if (field.type === 'checkboxGroup') {
-      // handle multiple checkboxes
-      const currentValues = [...formValues[field.name]];
-      if (currentValues.includes(e.target.value)) {
-        const idx = currentValues.indexOf(e.target.value);
-        currentValues.splice(idx, 1);
-      } else {
-        currentValues.push(e.target.value);
-      }
-      setFormValues({ ...formValues, [field.name]: currentValues });
-    } else if (field.type === 'radio') {
-      setFormValues({ ...formValues, [field.name]: e.target.value });
-    } else {
-      setFormValues({ ...formValues, [field.name]: e.target.value });
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting form:", formValues);
-    // axios.post('http://localhost:5000/api/request-quote/submit', formValues)
-    //   .then(...)
+    const { name, email, phone, tourPackage, travelDate, people, message } = formValues;
+    // Dummy developer email where the quote request will be sent
+    const developerEmail = 'dev@example.com'; // <-- placed here
+
+    // Compose email body
+    const body = `Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Tour Package: ${tourPackage}
+Travel Date: ${travelDate}
+Number of People: ${people}
+Message: ${message}`;
+
+    // Trigger mailto link
+    window.location.href =
+      `mailto:${developerEmail}` +
+      `?subject=${encodeURIComponent('Quote Request from ' + name)}` +
+      `&body=${encodeURIComponent(body)}`;
   };
 
   return (
-    <div>
-      {/* Hero */}
-      <div
-        style={{
-          height: '300px',
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <div style={{ background:'rgba(0,0,0,0.3)', padding:'1rem', borderRadius:'8px' }}>
-          <h1 style={{ color:'#fff', margin:0 }}>{heroTitle}</h1>
-          <p style={{ color:'#fff', margin:0 }}>{heroSubtitle}</p>
+    <div className="rq-page">
+      <h1 className="rq-title">Request a Quote</h1>
+      <form className="rq-form" onSubmit={handleSubmit}>
+        <label>
+          Name *
+          <input
+            type="text"
+            name="name"
+            value={formValues.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Email *
+          <input
+            type="email"
+            name="email"
+            value={formValues.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Phone
+          <input
+            type="tel"
+            name="phone"
+            value={formValues.phone}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label>
+          Tour Package *
+          <select
+            name="tourPackage"
+            value={formValues.tourPackage}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>Select a package</option>
+            {tourOptions.map((opt, i) => (
+              <option key={i} value={opt}>{opt}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Travel Date *
+          <input
+            type="date"
+            name="travelDate"
+            value={formValues.travelDate}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Number of People *
+          <input
+            type="number"
+            name="people"
+            min="1"
+            value={formValues.people}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label className="rq-message">
+          Message
+          <textarea
+            name="message"
+            rows="4"
+            value={formValues.message}
+            onChange={handleChange}
+          />
+        </label>
+
+        <div className="rq-submit">
+          <button type="submit">Submit</button>
         </div>
-      </div>
-
-      <div style={{ padding:'2rem' }}>
-        <h2 style={{ textAlign:'center' }}>{heroTitle}</h2>
-        <p style={{ textAlign:'center' }}>{heroSubtitle}</p>
-
-        <form onSubmit={handleSubmit} style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
-          {formFields.map((field, idx) => {
-            return (
-              <div key={idx} style={{ display:'flex', flexDirection:'column' }}>
-                <label>
-                  {field.label}
-                  {field.required && ' *'}
-                </label>
-
-                {/* Render input based on field.type */}
-                {field.type === 'text' || field.type === 'email' || field.type === 'date' || field.type === 'number' ? (
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    required={field.required}
-                    value={formValues[field.name] || ''}
-                    onChange={(e) => handleInputChange(field, e)}
-                  />
-                ) : field.type === 'select' ? (
-                  <select
-                    name={field.name}
-                    required={field.required}
-                    value={formValues[field.name]}
-                    onChange={(e) => handleInputChange(field, e)}
-                  >
-                    {field.options.map((opt, i) => (
-                      <option key={i} value={opt}>{opt}</option>
-                    ))}
-                  </select>
-                ) : field.type === 'textarea' ? (
-                  <textarea
-                    name={field.name}
-                    required={field.required}
-                    value={formValues[field.name] || ''}
-                    onChange={(e) => handleInputChange(field, e)}
-                  />
-                ) : field.type === 'checkboxGroup' ? (
-                  <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
-                    {field.options.map((opt, i) => (
-                      <label key={i}>
-                        <input
-                          type="checkbox"
-                          value={opt}
-                          checked={formValues[field.name]?.includes(opt)}
-                          onChange={(e) => handleInputChange(field, e)}
-                        />
-                        {opt}
-                      </label>
-                    ))}
-                  </div>
-                ) : field.type === 'radio' ? (
-                  <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
-                    {field.options.map((opt, i) => (
-                      <label key={i}>
-                        <input
-                          type="radio"
-                          name={field.name}
-                          value={opt}
-                          checked={formValues[field.name] === opt}
-                          onChange={(e) => handleInputChange(field, e)}
-                          required={field.required}
-                        />
-                        {opt}
-                      </label>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
-
-          <div style={{ gridColumn:'span 2', textAlign:'center', marginTop:'1rem' }}>
-            <button type="submit">SUBMIT</button>
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
   );
 }
 
 export default RequestQuotePage;
-//awesome

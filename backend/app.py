@@ -7,12 +7,8 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from models.ext import db
 from config import Config
-from routes.home_routes import home_bp
 from routes.tour_routes import tour_bp
-from routes.destination_routes import destination_bp
-from routes.about_routes import about_bp
-from routes.contact_routes import contact_bp
-from routes.request_quote_routes import request_quote_bp
+
 
 load_dotenv()
 
@@ -26,13 +22,8 @@ jwt = JWTManager(app)
 # Allow requests from React (port 3000)
 CORS(app, origins=["http://localhost:3000"])
 
-# Register blueprints
-app.register_blueprint(home_bp)
 app.register_blueprint(tour_bp)
-app.register_blueprint(destination_bp)
-app.register_blueprint(about_bp)
-app.register_blueprint(contact_bp)
-app.register_blueprint(request_quote_bp)
+
 
 if __name__ == "__main__":
     with app.app_context():

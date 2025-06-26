@@ -1,0 +1,74 @@
+/* ToursPage.css */
+
+.tours-page {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+  color: #333;
+}
+
+.tours-heading {
+  text-align: center;
+  font-size: 2rem;
+  color: #800000;
+  margin-bottom: 2rem;
+}
+
+.tours-status {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.tours-status.error {
+  color: red;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.tour-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.tour-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tour-info {
+  padding: 1rem;
+}
+
+.tour-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #800000;
+}
+
+.tour-description {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .tours-grid {
+    grid-template-columns: 1fr;
+  }
+}

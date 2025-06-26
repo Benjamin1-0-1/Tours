@@ -1,8 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text
 from models.ext import db
-
-
 class Review(db.Model):
     __tablename__ = "reviews"
 
@@ -10,7 +7,3 @@ class Review(db.Model):
     author = Column(String(100), nullable=False)
     rating = Column(Integer, nullable=False)
     comment = Column(Text, nullable=True)
-    destination_id = Column(Integer, ForeignKey("destinations.id"), nullable=False)
-
-
-    destination = relationship("Destination", back_populates="reviews")
