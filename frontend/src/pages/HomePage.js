@@ -1,135 +1,20 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import React, { useState, useRef,  useEffect } from 'react';
+import { safariPackages } from '../data/safariData';
 import './HomePage.css';
 
-const aboutData = {
-  aboutTitle: 'Welcome to MUFASA Tours & Travels',
-  aboutText: 'Experience the best East African safaris with our expert guides and tailor-made packages. Your adventure starts here.'
-};
-
-const safariPackages = [
-  {
-    id: 'kenya-road-safaris',
-    title: 'Kenya Road Safaris',
-    subtitle: 'Explore off-road trails and hidden gems',
-    slug: 'kenya-road-safaris',
-    backgroundImages: [
-      '/images/img1.jpeg',
-      '/images/img2.jpeg',
-      '/images/img3.jpeg'
-    ]
-  },
-  {
-    id: 'kenya-luxury-safaris',
-    title: 'Kenya Luxury Safaris',
-    subtitle: 'Indulge in premium tented camps',
-    slug: 'kenya-luxury-safaris',
-    backgroundImages: [
-      '/images/img4.jpeg',
-      '/images/img5.jpeg',
-      '/images/img6.jpeg'
-    ]
-  },
-  {
-    id: 'kenya-tanzania-safaris',
-    title: 'Kenya–Tanzania Safaris',
-    subtitle: 'Witness the Great Migration',
-    slug: 'kenya-tanzania-safaris',
-    backgroundImages: [
-      '/images/img1.jpeg',
-      '/images/img2.jpeg',
-      '/images/img3.jpeg'
-    ]
-  },
-  {
-    id: 'masai-mara-adventures',
-    title: 'Masai Mara Adventures',
-    subtitle: 'Get close to the Big Five',
-    slug: 'masai-mara-adventures',
-    backgroundImages: [
-      '/images/img8.jpeg',
-      '/images/img2.jpeg',
-      '/images/img6.jpeg'
-    ]
-  },
-  {
-    id: 'amboseli-day-trip',
-    title: 'Amboseli Day Trip',
-    subtitle: 'Elephants with Kilimanjaro views',
-    slug: 'amboseli-day-trip',
-    backgroundImages: [
-      '/images/img1.jpeg',
-      '/images/img5.jpeg',
-      '/images/img3.jpeg'
-    ]
-  },
-  {
-    id: 'lake-nakuru-retreat',
-    title: 'Lake Nakuru Retreat',
-    subtitle: 'Flamingo-filled shores and peaceful lodges',
-    slug: 'lake-nakuru-retreat',
-    backgroundImages: [
-      '/images/img5.jpeg',
-      '/images/img8.jpeg',
-      '/images/img3.jpeg'
-    ]
-  },
-  {
-    id: 'tsavo-east-safari',
-    title: 'Tsavo East Safari',
-    subtitle: 'Red earth landscapes & desert-adapted wildlife',
-    slug: 'tsavo-east-safari',
-    backgroundImages: [
-      '/images/img3.jpeg',
-      '/images/img8.jpeg',
-      '/images/img6.jpeg'
-    ]
-  },
-  {
-    id: 'samburu-cultural-tour',
-    title: 'Samburu Cultural Tour',
-    subtitle: 'Meet the Samburu people & traditions',
-    slug: 'samburu-cultural-tour',
-    backgroundImages: [
-      '/images/img1.jpeg',
-      '/images/img8.jpeg',
-      '/images/img3.jpeg'
-    ]
-  }
-];
-
 const features = [
-  { id: 1, icon: '🐾', title: 'Leading Tour Operator',    text: 'We are among Kenya’s top-rated safari specialists, ensuring seamless adventures.' },
-  { id: 2, icon: '🐾', title: 'Tailor-Made Packages',      text: 'Customizable itineraries to fit every traveler’s dream.' },
-  { id: 3, icon: '🐾', title: 'Expert Guides',            text: 'Our certified guides bring you closer to wildlife and culture.' }
+  { id: 1, icon: '🐾', title: 'Leading Tour Operator', text: 'We are among Kenya’s top-rated safari specialists, ensuring seamless adventures.' },
+  { id: 2, icon: '🐾', title: 'Tailor-Made Packages',   text: 'Customizable itineraries to fit every traveler’s dream.' },
+  { id: 3, icon: '🐾', title: 'Expert Guides',         text: 'Our certified guides bring you closer to wildlife and culture.' }
 ];
 
 const faqItems = [
-  {
-    id: 1,
-    question: 'What is included in the safari packages?',
-    answer: 'All packages include accommodation, game drives, park fees, and meals as outlined in each itinerary.'
-  },
-  {
-    id: 2,
-    question: 'How do I book a safari?',
-    answer: 'Select your preferred package, fill out the quote request form, and we will be in touch to confirm your booking.'
-  },
-  {
-    id: 3,
-    question: 'What is your cancellation policy?',
-    answer: 'Cancellations more than 30 days before departure receive a full refund, less any transaction fees.'
-  },
-  {
-    id: 4,
-    question: 'Are international flights included?',
-    answer: 'International flights are not included, but we can assist with flight bookings upon request.'
-  },
-  {
-    id: 5,
-    question: 'Can I customize my itinerary?',
-    answer: 'Yes! We specialize in tailor-made safaris. Let us know your interests and we will create a unique itinerary.'
-  }
+  { id: 1, question: 'What is included in the safari packages?', answer: 'All packages include accommodation, game drives, park fees, and meals as outlined in each itinerary.' },
+  { id: 2, question: 'How do I book a safari?',                    answer: 'Select your preferred package, fill out the quote request form, and we will be in touch to confirm your booking.' },
+  { id: 3, question: 'What is your cancellation policy?',         answer: 'Cancellations more than 30 days before departure receive a full refund, less any transaction fees.' },
+  { id: 4, question: 'Are international flights included?',      answer: 'International flights are not included, but we can assist with flight bookings upon request.' },
+  { id: 5, question: 'Can I customize my itinerary?',            answer: 'Yes! We specialize in tailor-made safaris. Let us know your interests and we will create a unique itinerary.' }
 ];
 
 const carouselImages = [
@@ -140,49 +25,22 @@ const carouselImages = [
   '/images/img1.jpeg'
 ];
 
-function CarouselCard({ pkg }) {
-  const [current, setCurrent] = useState(0);
-  const [previous, setPrevious] = useState(null);
-  const timer = useRef(null);
+function HoverCard({ pkg }) {
+  const [hover, setHover] = useState(false);
 
-  const startCarousel = () => {
-    if (!timer.current) {
-      timer.current = setInterval(() => {
-        setPrevious(current);
-        setCurrent(i => (i + 1) % pkg.backgroundImages.length);
-      }, 3000);
-    }
-  };
-
-  const stopCarousel = () => {
-    clearInterval(timer.current);
-    timer.current = null;
-    setPrevious(null);
-  };
-
-  useEffect(() => {
-    return () => clearInterval(timer.current);
-  }, []);
+  // On hover: show second image, otherwise first
+  const bgUrl = hover
+    ? pkg.backgroundImages[1]
+    : pkg.backgroundImages[0];
 
   return (
     <Link
       to={`/destinations/${pkg.slug}`}
       className="card"
-      onMouseEnter={startCarousel}
-      onMouseLeave={stopCarousel}
+      style={{ backgroundImage: `url(${bgUrl})` }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
-      {/* Previous image layer */}
-      {previous !== null && (
-        <div
-          className="bg-layer layer-old"
-          style={{ backgroundImage: `url(${pkg.backgroundImages[previous]})` }}
-        />
-      )}
-      {/* Current image layer */}
-      <div
-        className="bg-layer layer-new"
-        style={{ backgroundImage: `url(${pkg.backgroundImages[current]})` }}
-      />
       <div className="card-overlay" />
       <div className="card-content">
         <h4 className="card-title">{pkg.title}</h4>
@@ -192,14 +50,15 @@ function CarouselCard({ pkg }) {
   );
 }
 
-function HomePage() {
+export default function HomePage() {
   return (
     <div className="homepage">
+      {/* Intro Carousel */}
       <section className="intro-section">
         <div className="intro-track">
           {[...carouselImages, ...carouselImages].map((src, i) => (
             <div key={i} className="intro-slide">
-              <img src={src} alt={`Slide ${i % carouselImages.length + 1}`} />
+              <img src={src} alt="" />
             </div>
           ))}
         </div>
@@ -214,13 +73,15 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Packages Grid */}
       <h3 className="packages-heading">Our Safari Packages</h3>
       <div className="packages-grid">
         {safariPackages.map(pkg => (
-          <CarouselCard key={pkg.id} pkg={pkg} />
+          <HoverCard key={pkg.slug} pkg={pkg} />
         ))}
       </div>
 
+      {/* Why Choose Us */}
       <section className="why-section">
         <h3 className="why-heading">WHY CHOOSE US</h3>
         <div className="why-underline" />
@@ -235,6 +96,7 @@ function HomePage() {
         </div>
       </section>
 
+      {/* FAQ */}
       <section className="faq-section">
         <h3 className="faq-heading">Frequently Asked Questions</h3>
         <hr className="section-separator" />
@@ -250,5 +112,3 @@ function HomePage() {
     </div>
   );
 }
-
-export default HomePage;

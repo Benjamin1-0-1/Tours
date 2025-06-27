@@ -6,7 +6,7 @@ const navItems = [
   { to: '/',                   label: 'Home' },
   { to: '/tours',              label: 'Tours' },
   { to: '/about/our-company',  label: 'About Us' },
-  { to: '/fleet-guides',       label: 'Fleet & Guides' },
+  { to: '/fleets',       label: 'Fleets' },
   { to: '/contact-us',         label: 'Contact Us' },
   { to: '/request-a-quote',    label: 'Request Quote', className: 'quote-btn' }
 ];
