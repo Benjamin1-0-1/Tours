@@ -22,10 +22,27 @@
 }
 
 .intro-section {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 3rem;
+  position: relative;
+  width: 100vw;
+  height: 380px;
+  overflow: hidden;
+  margin-left: calc(-50vw + 50%);
+  /* pull it up under the navbar */
+  margin-top: -56px;          /* ← navbar height */
 }
+
+.intro-section + * {
+  /* push everything else back down */
+  margin-top: 56px;
+}
+
+.brand-intro {
+  color: #800000;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
 .intro-section h1 {
   font-size: 2.5rem;
   color: #800000;
@@ -81,11 +98,16 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* smooth zoom on hover */
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              background-size 0.5s ease-in-out;
 }
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: zoomPulse 2s ease-in-out infinite;
+  box-shadow:   0 8px 20px rgba(0,0,0,0.2);
+  background-size: 110%;
 }
 .card-image {
   position: absolute;
@@ -104,13 +126,14 @@
   inset: 0;
   background: rgba(0,0,0,0.25);
   transition: background 0.3s ease;
+  z-index: 2;
 }
 .card:hover .card-overlay {
   background: rgba(0,0,0,0.45);
 }
 .card-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 1rem;
   color: #fff;
   text-align: center;
@@ -244,4 +267,104 @@
   .features-grid {
     grid-template-columns: 1fr;
   }
+}
+
+@keyframes zoomPulse {
+  0%   { background-size: 100%; }
+  50%  { background-size: 120%; }
+  100% { background-size: 100%; }
+}
+
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 1s ease-in-out;
+}
+
+.layer-old {
+  z-index: 0;
+  opacity: 1;
+}
+
+.layer-new {
+  z-index: 1;
+  opacity: 1;
+}
+
+
+/* INTRO SECTION AS CAROUSEL */
+.intro-section {
+  position: relative;
+  width: 100vw;                    /* full viewport width */
+  margin-left: calc(-50vw + 50%);         /* center it */
+  height: 400px;
+  overflow: hidden;
+}
+
+/* track flexes all slides horizontally */
+.intro-track {
+  display: flex;
+  width: calc(100% * 10);          /* 5 slides × 2 */
+  animation: scrollIntro 190s linear infinite;
+}
+
+.intro-slide {
+  flex: 0 0 10%;
+}
+.intro-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+/* your centered text/content */
+.intro-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+
+.intro-content h1 {
+  color: #800000;                  /* MUFASA red */
+  font-size: 2.75rem;
+  margin: 0 0 0.5rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+.intro-content p {
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* separator under intro text */
+.section-separator {
+  width: 50%;
+  height: 2px;
+  margin: 0 auto;
+  background-color: #800000;
+  border: none;
+}
+
+@keyframes scrollIntro {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
