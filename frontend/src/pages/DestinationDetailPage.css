@@ -1,0 +1,116 @@
+/* src/pages/DestinationDetailPage.css */
+
+.detail-page {
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+  color: #333;
+}
+
+/* Hero banner */
+.detail-hero {
+  position: relative;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.detail-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+.detail-title {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  color: #fff;
+  font-size: 2.25rem;
+  z-index: 1;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+/* Overview */
+.detail-overview {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Image gallery */
+.detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.detail-gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.detail-gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Itinerary & Highlights */
+.detail-itinerary,
+.detail-highlights {
+  margin-bottom: 2rem;
+}
+.detail-itinerary h2,
+.detail-highlights h2 {
+  font-size: 1.75rem;
+  color: #800000;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.detail-itinerary ul,
+.detail-highlights ul {
+  list-style: disc inside;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* CTA Buttons */
+.detail-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+.btn-quote,
+.btn-contact {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.btn-quote {
+  background-color: #800000;
+  color: #fff;
+}
+.btn-quote:hover {
+  background-color: #a00000;
+}
+.btn-contact {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.btn-contact:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .detail-hero { height: 200px; }
+  .detail-title { font-size: 1.75rem; }
+}
